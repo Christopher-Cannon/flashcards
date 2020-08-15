@@ -1,0 +1,122 @@
+/* General */
+body {
+  background-color: var(--bg-secondary);
+  color: var(--fg-primary);
+}
+
+@media screen and (max-width: 550px) {
+  body {
+    background-color: var(--bg-primary);
+  }
+}
+
+a {
+  color: var(--fg-primary);
+}
+
+hr {
+  background-color: var(--fg-primary);
+}
+
+.link {
+  color: var(--accent-strong);
+}
+
+/* Page header and navigation */
+.page-header,
+.panel,
+.card {
+  background-color: var(--bg-primary);
+}
+
+.panel,
+.card {
+  box-shadow: 0 2px 5px var(--shadow);
+}
+
+.page-header {
+  border-bottom: 2px solid var(--dark-mode-border);
+}
+
+@media screen and (max-width: 550px) {
+  .panel{
+    box-shadow: 0 0 0 transparent;
+  }
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--accent-pale);
+  box-shadow: 0 2px 5px var(--shadow);
+}
+
+.btn-primary:hover,
+.btn-primary:active {
+  background-color: var(--accent-strong);
+}
+
+.btn-warning {
+  background-color: var(--warning-pale);
+  box-shadow: 0 2px 5px var(--shadow);
+}
+
+.btn-warning:hover,
+.btn-warning:active {
+  background-color: var(--warning-strong);
+}
+
+/* Forms */
+.form input,
+.form textarea {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--fg-secondary);
+  color: var(--fg-primary);
+}
+
+.form input:focus,
+.form textarea:focus {
+  border: 1px solid var(--accent-strong);
+}
+
+.form input[type="submit"] {
+  background-color: var(--accent-pale);
+  border: 0;
+  box-shadow: 0 2px 5px var(--shadow);
+  color: var(--fg-primary);
+  cursor: pointer;
+}
+
+.form input[type="submit"]:hover {
+  background-color: var(--accent-strong);
+}
+
+/* Tables */
+.table tbody tr,
+.table tfoot tr {
+  border-top: 2px solid var(--accent-pale);
+}
+
+/* Cards */
+.card {
+  border: 2px solid var(--dark-mode-border);
+}
+
+.card:hover {
+  box-shadow: 0 2px 5px var(--shadow-darker);
+}
+
+.card-new {
+  border: 3px dashed var(--accent-pale);
+}
+
+.card-new:hover {
+  background-color: var(--accent-pale);
+}
+
+.card-new .card-title {
+  color: var(--accent-pale);
+}
+
+.card-new:hover .card-title {
+  color: var(--fg-primary);
+}

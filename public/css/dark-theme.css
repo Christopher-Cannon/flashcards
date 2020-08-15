@@ -1,0 +1,14 @@
+/* Dark theme vars */
+:root {
+  --fg-primary: hsl(0, 0%, 99%);
+  --fg-secondary: hsl(0, 0%, 93%);
+  --bg-primary: hsl(0, 0%, 15%);
+  --bg-secondary: hsl(0, 0%, 20%);
+  --accent-pale: hsl(210, 100%, 63%);
+  --accent-strong: hsl(210, 100%, 53%);
+  --warning-pale: hsl(355, 100%, 63%);
+  --warning-strong: hsl(355, 100%, 53%);
+  --shadow: transparent;
+  --shadow-darker: transparent;
+  --dark-mode-border: var(--accent-pale);
+}
