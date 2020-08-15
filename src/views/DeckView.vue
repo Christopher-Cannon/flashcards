@@ -1,0 +1,50 @@
+<template>
+  <div class="panel">
+    <DeckForm />
+
+    <div>
+      <h3 class="margin-top-md">List of cards</h3>
+
+      <a href="card-add.html" class="btn-primary btn-block">Add new card</a>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Front</th>
+            <th>Back</th>
+            <th>Controls</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <CardPreview />
+          <CardPreview />
+          <CardPreview />
+        </tbody>
+
+        <tfoot>
+          <tr>
+            <th>ID</th>
+            <th>Front</th>
+            <th>Back</th>
+            <th>Controls</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</template>
+
+<script>
+import DeckForm from '../components/DeckForm'
+import CardPreview from '../components/CardPreview'
+
+export default {
+  name: 'deckView',
+  components: {
+    DeckForm,
+    CardPreview
+  }
+}
+</script>

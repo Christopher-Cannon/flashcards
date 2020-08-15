@@ -4,10 +4,10 @@
   --fg-secondary: hsl(0, 0%, 20%);
   --bg-primary: hsl(0, 0%, 99%);
   --bg-secondary: hsl(0, 0%, 93%);
-  --accent-pale: hsl(210, 100%, 83%);
-  --accent-strong: hsl(210, 100%, 73%);
-  --warning-pale: hsl(355, 100%, 83%);
-  --warning-strong: hsl(355, 100%, 73%);
+  --accent-pale: hsl(224, 100%, 80%);
+  --accent-strong: hsl(224, 100%, 70%);
+  --warning-pale: hsl(355, 100%, 80%);
+  --warning-strong: hsl(355, 100%, 70%);
   --shadow: hsla(0, 0%, 50%, 0.15);
   --shadow-darker: hsla(0, 0%, 50%, 0.3);
   --dark-mode-border: transparent;

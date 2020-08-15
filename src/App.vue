@@ -1,6 +1,12 @@
 <template>
   <div id="app">
     <PageHeader />
+
+    <main class="page-content">
+      <div class="page-block">
+        <router-view></router-view>
+      </div>
+    </main>
   </div>
 </template>
 
@@ -14,6 +20,3 @@ export default {
   }
 }
 </script>
-
-<style>
-</style>

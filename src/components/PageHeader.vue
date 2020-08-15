@@ -11,10 +11,25 @@
       </a>
 
       <ul class="page-navigation show-gt-md" id="page-navigation">
-        <li><a href="decks.html">Decks</a></li>
-        <li><a href="settings.html">My Settings</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="index.html">Logout</a></li>
+        <router-link :to="{ name: 'Home' }" tag="li">
+          <a>Home</a>
+        </router-link>
+
+        <router-link :to="{ name: 'Decks' }" tag="li">
+          <a>My Decks</a>
+        </router-link>
+
+        <router-link :to="{ name: 'Settings' }" tag="li">
+          <a>My Settings</a>
+        </router-link>
+
+        <router-link :to="{ name: 'About' }" tag="li">
+          <a>About Flashcards</a>
+        </router-link>
+
+        <li>
+          <a href="javascript:;">Logout</a>
+        </li>
       </ul>
     </nav>
   </header>
