@@ -40,9 +40,9 @@ export default {
         password: this.password
       }
       store.dispatch('signIn', user)
-        .then(() => this.$router.push({ name: 'Home' }))
         .then(() => this.$cookies.set('loggedIn', 'true'))
         .then(() => this.$cookies.set('userEmail', this.email))
+        .then(() => this.$router.push({ name: 'Decks' }))
     }
   }
 }

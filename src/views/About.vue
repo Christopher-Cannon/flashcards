@@ -15,7 +15,7 @@
       omnis. Dignissimos, veritatis!
     </p>
 
-    <div class="btn-group">
+    <div class="btn-group" v-if="loggedIn === null">
       <router-link :to="{ name: 'Register' }" class="btn-primary">
         Register
       </router-link>
@@ -28,7 +28,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  name: 'about'
+  name: 'about',
+  computed: {
+    ...mapGetters([
+      'loggedIn'
+    ])
+  }
 }
 </script>

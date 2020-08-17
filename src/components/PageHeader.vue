@@ -51,6 +51,7 @@ export default {
       store.dispatch('signOut')
         .then(() => this.$cookies.remove('loggedIn'))
         .then(() => this.$cookies.remove('userEmail'))
+        .then(() => this.$router.push({ name: 'Home' }))
     }
   }
 }
