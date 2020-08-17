@@ -51,7 +51,12 @@ export default {
       store.dispatch('signOut')
         .then(() => this.$cookies.remove('loggedIn'))
         .then(() => this.$cookies.remove('userEmail'))
-        .then(() => this.$router.push({ name: 'Home' }))
+        .then(() => {
+          // Don't redirect if we're already on the home page
+          if (this.$route.name !== 'Home') {
+            this.$router.push({ name: 'Home' })
+          }
+      })
     }
   }
 }

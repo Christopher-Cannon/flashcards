@@ -26,6 +26,23 @@ const actions = {
     commit('SET_LOGGED_IN', true)
     commit('SET_USER', email)
   },
+  async register ({commit}, user) {
+    try {
+      const userData = await firebaseAuth.createUserWithEmailAndPassword(
+        user.email,
+        user.password
+      )
+      commit('SET_LOGGED_IN', user !== null)
+
+      if (userData.user) {
+        commit('SET_USER', { email: user.email })
+      } else {
+        commit('SET_USER', null)
+      }
+    } catch (error) {
+      console.log(error.message)
+    }
+  },
   async signIn ({ commit }, user) {
     try {
       const userData = await firebaseAuth.signInWithEmailAndPassword(
