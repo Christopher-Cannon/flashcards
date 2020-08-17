@@ -28,6 +28,17 @@ export default {
       password: ''
     }
   },
+  // beforeRouteEnter(to, from, next) {
+  //   console.log(store.getters.loggedIn)
+
+  //   if (store.getters.loggedIn === null) {
+  //     console.log("Not logged in")
+  //     next()
+  //   } else {
+  //     console.log("You are already logged in")
+  //     next(false)
+  //   }
+  // },
   computed: {
     ...mapGetters([
       'currentUser'

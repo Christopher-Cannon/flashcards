@@ -22,6 +22,7 @@ export const routes = [
   { path: '/results', name: 'Results', component: Results },
   { path: '/password-reset', name: 'PasswordReset', component: PasswordReset },
   { path: '/card', name: 'Card', component: Card },
+  { path: '*', redirect: '/' },
 ]
 
 // Proposal: rename 'deck-view' to just 'decks'

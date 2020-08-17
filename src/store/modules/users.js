@@ -8,8 +8,8 @@ const state = {
 }
 
 const getters = {
-  currentUser: state => state.user.data,
-  loggedIn: state => state.user.loggedIn
+  loggedIn: state => state.user.loggedIn,
+  currentUser: state => state.user.data
 }
 
 const mutations = {
