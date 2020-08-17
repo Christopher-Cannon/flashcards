@@ -15,11 +15,11 @@
           <a>Home</a>
         </router-link>
 
-        <router-link :to="{ name: 'Decks' }" tag="li">
+        <router-link :to="{ name: 'Decks' }" tag="li" v-if="loggedIn !== null">
           <a>My Decks</a>
         </router-link>
 
-        <router-link :to="{ name: 'Settings' }" tag="li">
+        <router-link :to="{ name: 'Settings' }" tag="li" v-if="loggedIn !== null">
           <a>My Settings</a>
         </router-link>
 
@@ -27,8 +27,8 @@
           <a>About Flashcards</a>
         </router-link>
 
-        <li>
-          <a href="javascript:;">Logout</a>
+        <li v-if="loggedIn !== null">
+          <a href="javascript:;" @click.prevent="signOut">Logout</a>
         </li>
       </ul>
     </nav>
@@ -36,7 +36,22 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { store } from '../store/store'
+
 export default {  
-  name: 'pageHeader'
+  name: 'pageHeader',
+    computed: {
+    ...mapGetters([
+      'loggedIn'
+    ])
+  },
+  methods: {
+    signOut() {
+      store.dispatch('signOut')
+        .then(() => this.$cookies.remove('loggedIn'))
+        .then(() => this.$cookies.remove('userEmail'))
+    }
+  }
 }
 </script>

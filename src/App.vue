@@ -11,12 +11,20 @@
 </template>
 
 <script>
+import { store } from './store/store'
 import PageHeader from './components/PageHeader';
 
 export default {
   name: 'App',
   components: {
     PageHeader
+  },
+  mounted() {
+    // Check if a cookie was stored from a previous login
+    // Prevents logout if page is refreshed
+    if (this.$cookies.isKey('loggedIn')) {
+      store.dispatch('signInFromCookie', this.$cookies.get('userEmail'))
+    }
   }
 }
 </script>

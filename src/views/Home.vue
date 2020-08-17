@@ -7,13 +7,15 @@
       Quisquam at quidem unde, officiis dolor iure commodi vitae minima.
     </p>
 
-    <router-link :to="{ name: 'Register' }" tag="span">
-      <a class="btn-primary">Register</a>
-    </router-link>
+    <div class="btn-group">
+      <router-link :to="{ name: 'Register' }" class="btn-primary">
+        Register
+      </router-link>
 
-    <router-link :to="{ name: 'Login' }" tag="span">
-      <a class="btn-primary">Login</a>
-    </router-link>
+      <router-link :to="{ name: 'Login' }" class="btn-primary">
+        Login
+      </router-link>
+    </div>
   </div>
 </template>
 
