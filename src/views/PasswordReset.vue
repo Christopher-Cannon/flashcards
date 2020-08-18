@@ -12,7 +12,7 @@
       Please contact us if you experience any further difficulties.
     </p>
 
-    <form action="login.html" class="form">
+    <form class="form">
       <label>Email</label>
       <input type="email">
 

@@ -7,8 +7,12 @@
     </p>
 
     <div class="card-btn-group">
-      <a href="deck-view.html" class="btn-primary btn-block">Edit</a>
-      <a href="review.html" class="btn-primary btn-block">Review</a>
+      <router-link :to="{ name: 'DeckView', params: { deckId: 13 } }" class="btn-primary btn-block">
+        Edit
+      </router-link>
+      <router-link :to="{ name: 'Review' }" class="btn-primary btn-block">
+        Review
+      </router-link>
     </div>
   </div>
 </template>

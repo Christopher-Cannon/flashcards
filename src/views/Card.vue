@@ -5,10 +5,10 @@
 
     <form action="deck-view.html" class="form">
       <label>Front</label>
-      <textarea name="front" maxlength="512"></textarea>
+      <textarea name="front" maxlength="512" v-model="cardFront"></textarea>
 
       <label>Back</label>
-      <textarea name="back" maxlength="512"></textarea>
+      <textarea name="back" maxlength="512" v-model="cardBack"></textarea>
 
       <input type="submit" name="submit" value="Update card" v-if="cardId">
       <input type="submit" name="submit" value="Create card" v-else>
@@ -19,6 +19,12 @@
 <script>
 export default {
   name: 'card',
-  props: ['deckId', 'cardId']
+  props: ['deckId', 'cardId'],
+  data() {
+    return {
+      cardFront: '',
+      cardBack: ''
+    }
+  }
 }
 </script>

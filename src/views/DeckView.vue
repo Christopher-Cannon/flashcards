@@ -5,7 +5,9 @@
     <div v-if="deckId">
       <h3 class="margin-top-md">List of cards</h3>
 
-      <a href="card-add.html" class="btn-primary btn-block">Add new card</a>
+      <router-link :to="{ name: 'CardAdd' }" class="btn-primary btn-block">
+        Add new card
+      </router-link>
 
       <table class="table">
         <thead>
