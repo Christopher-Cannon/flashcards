@@ -17,22 +17,13 @@ export const routes = [
   { path: '/login', name: 'Login', component: Login },
   { path: '/register', name: 'Register', component: Register },
   { path: '/decks', name: 'Decks', component: Decks },
-  { path: '/decks/add', name: 'DeckAdd', component: DeckView },
-  { path: '/decks/:deckId', name: 'DeckView', component: DeckView, props: true },
+  { path: '/deck/add', name: 'DeckAdd', component: DeckView },
+  { path: '/deck/:deckId', name: 'DeckView', component: DeckView, props: true },
   { path: '/review', name: 'Review', component: Review },
   { path: '/results', name: 'Results', component: Results },
   { path: '/password-reset', name: 'PasswordReset', component: PasswordReset },
-  { path: '/decks/:deckId/card/:cardId', name: 'Card', component: Card, props: true },
-  { path: '*', redirect: '/' },
+  { path: '/deck/:deckId/card', redirect: { name: 'DeckView' } },
+  { path: '/deck/:deckId/card/add', name: 'CardAdd', component: Card, props: true },
+  { path: '/deck/:deckId/card/:cardId', name: 'CardView', component: Card, props: true },
+  { path: '*', redirect: { name: 'Home' } },
 ]
-
-// Proposal: rename 'deck-view' to just 'decks'
-
-// /decks             -> View all of user's decks
-// /deck-view/4       -> View deck 4
-// /deck-view/add     -> Add
-// /deck-view/4/card/add    -> Add card to deck 4
-// /deck-view/4/card/17     -> Edit card 17 in deck 4
-
-// /review
-// /review/results
