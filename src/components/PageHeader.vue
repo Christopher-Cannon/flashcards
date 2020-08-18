@@ -10,21 +10,29 @@
       </a>
 
       <ul class="page-navigation" :class="[ showNav ? '' : 'show-gt-md' ]" @click="hideNav">
-        <router-link :to="{ name: 'Home' }" tag="li">
-          <a>Home</a>
-        </router-link>
+        <li>
+          <router-link :to="{ name: 'Home' }">
+            Home
+          </router-link>
+        </li>
 
-        <router-link :to="{ name: 'Decks' }" tag="li" v-if="loggedIn !== null">
-          <a>My Decks</a>
-        </router-link>
+        <li v-if="loggedIn !== null">
+          <router-link :to="{ name: 'Decks' }">
+            My Decks
+          </router-link>
+        </li>
 
-        <router-link :to="{ name: 'Settings' }" tag="li" v-if="loggedIn !== null">
-          <a>My Settings</a>
-        </router-link>
+        <li v-if="loggedIn !== null">
+          <router-link :to="{ name: 'Settings' }">
+            My Settings
+          </router-link>
+        </li>
 
-        <router-link :to="{ name: 'About' }" tag="li">
-          <a>About Flashcards</a>
-        </router-link>
+        <li>
+          <router-link :to="{ name: 'About' }">
+            About Flashcards
+          </router-link>
+        </li>
 
         <li v-if="loggedIn !== null">
           <a href="javascript:;" @click.prevent="signOut">Logout</a>

@@ -25,17 +25,6 @@ export default {
     if (this.$cookies.isKey('loggedIn')) {
       store.dispatch('signInFromCookie', this.$cookies.get('userEmail'))
     }
-
-  //   this.$router.beforeEach((to, from, next) => {
-  //   console.log(`loggedIn: ${store.getters.loggedIn}`)
-  //   console.log(`to: ${to.name}`)
-
-  //   if ((to.name === 'Login' || to.name === 'Register') && store.getters.loggedIn !== null) {
-  //     next({ name: 'Home' })
-  //   } else {
-  //     next()
-  //   }
-  // })
   }
 }
 </script>

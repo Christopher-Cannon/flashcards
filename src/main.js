@@ -24,9 +24,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const userStatus = store.getters.loggedIn
-  console.log(userStatus)
-  console.log(`to: ${to.name}`)
+  const userStatus = Vue.$cookies.get('loggedIn')
 
   if ((to.name === 'Login' || to.name === 'Register') && userStatus !== null) {
     next({ name: 'Home' })

@@ -7,7 +7,7 @@
       Quisquam at quidem unde, officiis dolor iure commodi vitae minima.
     </p>
 
-    <div class="btn-group">
+    <div class="btn-group" v-if="loggedIn === null">
       <router-link :to="{ name: 'Register' }" class="btn-primary">
         Register
       </router-link>
