@@ -4,13 +4,12 @@
       <a 
         href="javascript:;"
         class="mobile-navigation-btn show-lt-md"
-        id="mobile-navigation-btn"
-        onclick="toggleNavigation();"
+        @click.prevent="toggleNav"
       >
-        <i class="fas fa-bars"></i>
+        <i class="fas" :class="[ showNav ? 'fa-times' : 'fa-bars' ]"></i>
       </a>
 
-      <ul class="page-navigation show-gt-md" id="page-navigation">
+      <ul class="page-navigation" :class="[ showNav ? '' : 'show-gt-md' ]" @click="hideNav">
         <router-link :to="{ name: 'Home' }" tag="li">
           <a>Home</a>
         </router-link>
@@ -41,7 +40,12 @@ import { store } from '../store/store'
 
 export default {  
   name: 'pageHeader',
-    computed: {
+  data() {
+    return {
+      showNav: false
+    }
+  },
+  computed: {
     ...mapGetters([
       'loggedIn'
     ])
@@ -57,6 +61,12 @@ export default {
             this.$router.push({ name: 'Home' })
           }
       })
+    },
+    toggleNav() {
+      this.showNav = !this.showNav
+    },
+    hideNav() {
+      this.showNav = false
     }
   }
 }

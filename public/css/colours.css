@@ -27,10 +27,6 @@ hr {
 .panel,
 .card {
   background-color: var(--bg-primary);
-}
-
-.panel,
-.card {
   box-shadow: 0 2px 5px var(--shadow);
 }
 
