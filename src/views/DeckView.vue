@@ -1,8 +1,8 @@
 <template>
   <div class="panel">
-    <DeckForm />
+    <DeckForm :deckId="deckId" />
 
-    <div>
+    <div v-if="deckId">
       <h3 class="margin-top-md">List of cards</h3>
 
       <a href="card-add.html" class="btn-primary btn-block">Add new card</a>
@@ -45,6 +45,7 @@ export default {
   components: {
     DeckForm,
     CardPreview
-  }
+  },
+  props: ['deckId']
 }
 </script>

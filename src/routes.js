@@ -17,11 +17,12 @@ export const routes = [
   { path: '/login', name: 'Login', component: Login },
   { path: '/register', name: 'Register', component: Register },
   { path: '/decks', name: 'Decks', component: Decks },
-  { path: '/deck-view', name: 'DeckView', component: DeckView },
+  { path: '/decks/add', name: 'DeckAdd', component: DeckView },
+  { path: '/decks/:deckId', name: 'DeckView', component: DeckView, props: true },
   { path: '/review', name: 'Review', component: Review },
   { path: '/results', name: 'Results', component: Results },
   { path: '/password-reset', name: 'PasswordReset', component: PasswordReset },
-  { path: '/card', name: 'Card', component: Card },
+  { path: '/decks/:deckId/card/:cardId', name: 'Card', component: Card, props: true },
   { path: '*', redirect: '/' },
 ]
 

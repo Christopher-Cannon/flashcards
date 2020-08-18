@@ -12,7 +12,9 @@
       <input type="submit" name="submit" value="Login">
     </form>
 
-    <a href="password-reset.html" class="link">I forgot my password!</a>
+    <router-link :to="{ name: 'PasswordReset' }" class="link">
+      I forgot my password!
+    </router-link>
   </div>
 </template>
 

@@ -8,9 +8,9 @@
     </p>
 
     <div class="grid cards">
-      <a href="deck-add.html" class="card-new">
+      <router-link :to="{ name: 'DeckAdd' }" class="card-new">
         <h3 class="card-title">Add new deck</h3>
-      </a>
+      </router-link>
       
       <DeckPanel />
       <DeckPanel />

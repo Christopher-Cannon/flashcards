@@ -25,8 +25,12 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const userStatus = Vue.$cookies.get('loggedIn')
+  const loggedInBlacklist = ['Login', 'Register']
+  const loggedOutBlacklist = ['Decks', 'Settings', 'Review', 'Results', 'PasswordReset']
 
-  if ((to.name === 'Login' || to.name === 'Register') && userStatus !== null) {
+  if (loggedInBlacklist.includes(to.name) && userStatus !== null) {
+    next({ name: 'Decks' })
+  } else if (loggedOutBlacklist.includes(to.name) && userStatus === null) {
     next({ name: 'Home' })
   } else {
     next()

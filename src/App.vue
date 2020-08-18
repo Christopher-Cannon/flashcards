@@ -28,3 +28,9 @@ export default {
   }
 }
 </script>
+
+<style>
+  @import './assets/css/style.css';
+  @import './assets/css/light-theme.css';
+  @import './assets/css/colours.css';
+</style>
