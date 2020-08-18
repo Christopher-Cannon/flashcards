@@ -1,14 +1,16 @@
 import Home from './views/Home';
-import About from './views/About';
-import Settings from './views/Settings';
 import Login from './views/Login';
-import Register from './views/Register';
 import Decks from './views/Decks';
-import DeckView from './views/DeckView';
 import Review from './views/Review';
 import Results from './views/Results';
-import PasswordReset from './views/PasswordReset';
-import Card from './views/Card';
+
+const About = () => import('./views/About');
+const Settings = () => import('./views/Settings');
+const Register = () => import('./views/Register');
+const PasswordReset = () => import('./views/PasswordReset');
+const DeckView = () => import(/* webpackChunkName: "deck-editor" */ './views/DeckView');
+const Card = () => import(/* webpackChunkName: "deck-editor" */ './views/Card');
+
 
 export const routes = [
   { path: '/', name: 'Home', component: Home },
