@@ -5,7 +5,7 @@
 
     <form class="form" @submit.prevent="deckId ? deckEdit(deckId) : deckAdd()">
       <label>Deck name</label>
-      <input type="text" name="deck-name" v-model="deckName">
+      <input type="text" name="deck-name" v-model="currentDeck">
 
       <input type="submit" name="submit" value="Update deck" v-if="deckId">
       <input type="submit" name="submit" value="Create deck" v-else>
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { store } from '../store/store'
 
 export default {
@@ -23,12 +24,42 @@ export default {
   props: ['deckId'],
   data() {
     return {
-      deckName: ''
+      currentDeck: ''
     }
   },
+  mounted() {
+    // Display deck name if an ID is given
+    if (this.deckId) {
+      this.deckNameForEditing()
+    } else {
+      store.dispatch('setDeckName', null)
+    }
+  },
+  computed: {
+    // Get the name of the deck with the current deckId
+    ...mapGetters({
+      currentDeckStore: 'currentDeck'
+    }),
+    // currentDeck: {
+    //   get: function() {
+    //     return this.currentDeckStore
+    //   },
+    //   set: function(newValue) {
+    //     return newValue
+    //   }
+    // }
+  },
   methods: {
+    deckNameForEditing() {
+      return store.dispatch('getDeckName', this.deckId).then(() => {
+        this.setDeckName()
+      })
+    },
+    setDeckName() {
+      this.currentDeck = this.currentDeckStore
+    },
     deckAdd() {
-      store.dispatch('buildDeck', this.deckName)
+      store.dispatch('buildDeck', this.currentDeck)
         .then((deckId) => {
           if (deckId > 0) {
             this.$router.push({ name: 'DeckView', params: { deckId: deckId } })
@@ -38,10 +69,11 @@ export default {
     deckEdit(id) {
       const deckToEdit = {
         id: id,
-        deckName: this.deckName
+        deckName: this.currentDeck
       }
 
-      store.dispatch('editDeck', deckToEdit)
+      console.log(deckToEdit)
+      // store.dispatch('editDeck', deckToEdit)
     }
   }
 }

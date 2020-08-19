@@ -3,18 +3,36 @@ import { firebaseAuth } from '../../firebase'
 import { dbDecks } from '../../firebase'
 
 const state = {
-
+  currentDeck: ''
 }
 
 const getters = {
-
+  currentDeck: state => state.currentDeck
 }
 
 const mutations = {
-
+  SET_DECK_NAME: (state, deckName) => {
+    deckName === null ? state.currentDeck = null : state.currentDeck = deckName
+  }
 }
 
 const actions = {
+  setDeckName: ({ commit }, deckName) => {
+    commit('SET_DECK_NAME', deckName)
+  },
+  getDeckName: async({ dispatch }, deckId) => {
+    let userId = firebaseAuth.currentUser.uid
+    let query = dbDecks
+      .where("userId", "==", userId)
+      .where("id", "==", parseInt(deckId))
+    
+    await query.get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach( function(doc) {
+          dispatch('setDeckName', doc.data().name)
+        })
+    })
+  },
   buildDeck: async({ dispatch }, deckName) => {
     try {
       const { serverTimestamp } = firebase.firestore.FieldValue;
@@ -29,7 +47,7 @@ const actions = {
           if (querySnapshot.docs.length > 0) {
             id = querySnapshot.docs.length + 1
           }
-          let newDeck = {
+          const newDeck = {
             id: id,
             userId: userId,
             name: deckName,
@@ -46,6 +64,7 @@ const actions = {
   },
   addDeck: async(context, newDeck) => {
     try {
+      console.log(newDeck)
       await dbDecks.add(newDeck)
     } catch (error) {
       console.log(`Error creating new deck, ${error}`)
