@@ -3,7 +3,7 @@
     <h2 class="panel-heading" v-if="cardId">Update card {{ cardId }} of deck {{ deckId }}</h2>
     <h2 class="panel-heading" v-else>Add new card</h2>
 
-    <form action="deck-view.html" class="form">
+    <form class="form" @submit.prevent="cardId ? cardEdit(cardId) : cardAdd()">
       <label>Front</label>
       <textarea name="front" maxlength="512" v-model="cardFront"></textarea>
 
@@ -24,6 +24,14 @@ export default {
     return {
       cardFront: '',
       cardBack: ''
+    }
+  },
+  methods: {
+    cardAdd() {
+      console.log(`Add card`)
+    },
+    cardEdit(id) {
+      console.log(`Edit card ${id}`)
     }
   }
 }
