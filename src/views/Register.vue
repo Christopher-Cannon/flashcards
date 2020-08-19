@@ -45,8 +45,6 @@ export default {
               password: this.passwordOne
             }
             store.dispatch('signIn', user)
-              .then(() => this.$cookies.set('loggedIn', 'true'))
-              .then(() => this.$cookies.set('userEmail', this.email))
               .then(() => this.$router.push({ name: 'Decks' }))
           })
         } catch (error) {

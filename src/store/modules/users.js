@@ -22,7 +22,7 @@ const mutations = {
 }
 
 const actions = {
-  signInFromCookie ({ commit }, email) {
+  persistSignIn ({ commit }, email) {
     commit('SET_LOGGED_IN', true)
     commit('SET_USER', email)
   },

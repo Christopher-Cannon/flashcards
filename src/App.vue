@@ -12,6 +12,7 @@
 
 <script>
 import { store } from './store/store'
+import { firebaseAuth } from './firebase'
 import PageHeader from './components/PageHeader';
 
 export default {
@@ -20,11 +21,11 @@ export default {
     PageHeader
   },
   mounted() {
-    // Check if a cookie was stored from a previous login
-    // Prevents logout if page is refreshed
-    if (this.$cookies.isKey('loggedIn')) {
-      store.dispatch('signInFromCookie', this.$cookies.get('userEmail'))
-    }
+    firebaseAuth.onAuthStateChanged(user => {
+      if (user) {
+        store.dispatch('persistSignIn', user.email)
+      }
+    })
   }
 }
 </script>

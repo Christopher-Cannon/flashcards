@@ -1,16 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
-import VueCookies from 'vue-cookies'
 import { routes } from './routes'
 import { store } from './store/store'
+import { firebaseAuth } from './firebase'
 
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)
-Vue.use(VueCookies)
-
-Vue.$cookies.config('3d')
 
 const router = new VueRouter({
   routes,
@@ -24,17 +21,18 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const userStatus = Vue.$cookies.get('loggedIn')
   const loggedInBlacklist = ['Login', 'Register']
   const loggedOutBlacklist = ['Decks', 'Settings', 'Review', 'Results', 'PasswordReset']
 
-  if (loggedInBlacklist.includes(to.name) && userStatus !== null) {
-    next({ name: 'Decks' })
-  } else if (loggedOutBlacklist.includes(to.name) && userStatus === null) {
-    next({ name: 'Home' })
-  } else {
-    next()
-  }
+  firebaseAuth.onAuthStateChanged(user => {
+    if (loggedInBlacklist.includes(to.name) && user) {
+      next({ name: 'Decks' })
+    } else if (loggedOutBlacklist.includes(to.name) && !user) {
+      next({ name: 'Home' })
+    } else {
+      next()
+    }
+  })
 })
 
 new Vue({
