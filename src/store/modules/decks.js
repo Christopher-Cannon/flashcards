@@ -17,26 +17,29 @@ const mutations = {
 const actions = {
   buildDeck: async({ dispatch }, deckName) => {
     try {
-      // Determine next ID number to use for deck
       const { serverTimestamp } = firebase.firestore.FieldValue;
       let userId = firebaseAuth.currentUser.uid
       let query = dbDecks.where("userId", "==", userId)
       let id = 1
       
-      let newDeck = query.get()
+      // Get the ID of the deck we just added
+      let deckId = await query.get()
         .then((querySnapshot) => {
+          // Determine next ID number to use for deck
           if (querySnapshot.docs.length > 0) {
             id = querySnapshot.docs.length + 1
           }
-          newDeck = {
+          let newDeck = {
             id: id,
             userId: userId,
             name: deckName,
             created: serverTimestamp()
           }
-          return newDeck
+          dispatch('addDeck', newDeck)
+          return id
         })
-        .then(() => dispatch('addDeck', newDeck))
+
+      return deckId
     } catch (error) {
       console.log(`Error building new deck, ${error}`)
     }

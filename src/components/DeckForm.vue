@@ -29,6 +29,11 @@ export default {
   methods: {
     deckAdd() {
       store.dispatch('buildDeck', this.deckName)
+        .then((deckId) => {
+          if (deckId > 0) {
+            this.$router.push({ name: 'DeckView', params: { deckId: deckId } })
+          }
+        })
     },
     deckEdit(id) {
       const deckToEdit = {
