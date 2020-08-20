@@ -17,6 +17,9 @@
 </template>
 
 <script>
+// import { mapGetters } from 'vuex'
+import { store } from '../store/store'
+
 export default {
   name: 'card',
   props: ['deckId', 'cardId'],
@@ -28,7 +31,21 @@ export default {
   },
   methods: {
     cardAdd() {
-      console.log(`Add card`)
+      if (this.cardFront === '' || this.cardFront === '') {
+        console.log('Card fields cannot be empty')
+        return 0
+      }
+
+      const newCard = {
+        deckId: this.deckId,
+        front: this.cardFront,
+        back: this.cardBack
+      }
+
+      store.dispatch('buildCard', newCard)
+        .then((deckId) => {
+          this.$router.push({ name: 'DeckView', params: { deckId: deckId } })
+        })
     },
     cardEdit(id) {
       console.log(`Edit card ${id}`)

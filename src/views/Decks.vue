@@ -12,20 +12,30 @@
         <h3 class="card-title">Add new deck</h3>
       </router-link>
       
-      <DeckPanel />
-      <DeckPanel />
-      <DeckPanel />
+      <div v-for="(deck, index) in currentDeckStore" :key="index">
+        <DeckPanel :deck="deck" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import DeckPanel from '../components/DeckPanel'
 
 export default {
   name: 'decks',
   components: {
     DeckPanel
+  },
+  created() {
+    this.$store.dispatch('setDecksRef')
+    this.$store.dispatch('setCardsRef')
+  },
+  computed: {
+    ...mapGetters({
+      currentDeckStore: 'getDecks'
+    })
   }
 }
 </script>

@@ -1,13 +1,13 @@
 <template>
   <div class="card">
-    <h3 class="card-title">Deck title</h3>
+    <h3 class="card-title">{{ deck.name }}</h3>
 
     <p class="card-body">
-      26 cards
+      {{ cardCount }} cards
     </p>
 
     <div class="card-btn-group">
-      <router-link :to="{ name: 'DeckView', params: { deckId: 13 } }" class="btn-primary btn-block">
+      <router-link :to="{ name: 'DeckView', params: { deckId: parseInt(deck.id) } }" class="btn-primary btn-block">
         Edit
       </router-link>
       <router-link :to="{ name: 'Review' }" class="btn-primary btn-block">
@@ -18,7 +18,21 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  name: 'deckPanel'
+  name: 'deckPanel',
+  props: ['deck'],
+  computed: {
+    ...mapGetters({
+      currentCardStore: 'getCards'
+    }),
+    cardCount: {
+      get: function() {
+        console.log(this.deck.id)
+        return this.currentCardStore.filter(card => card.deckId == this.deck.id).length
+      }
+    }
+  }
 }
 </script>

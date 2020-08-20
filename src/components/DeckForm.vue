@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="panel-heading" v-if="deckId">Edit deck {{ deckId }}</h2>
+    <h2 class="panel-heading" v-if="deckId">{{ currentDeck }}</h2>
     <h2 class="panel-heading" v-else>Add new deck</h2>
 
     <form class="form" @submit.prevent="deckId ? deckEdit(deckId) : deckAdd()">
@@ -53,9 +53,7 @@ export default {
     deckAdd() {
       store.dispatch('buildDeck', this.currentDeck)
         .then((deckId) => {
-          if (deckId > 0) {
-            this.$router.push({ name: 'DeckView', params: { deckId: deckId } })
-          }
+          this.$router.push({ name: 'DeckView', params: { deckId: deckId } })
         })
     },
     deckEdit(id) {
