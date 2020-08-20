@@ -35,11 +35,13 @@ export default {
 
     if (this.deckId) {
       this.getDeckName()
+      this.getCardData()
     }
   },
   computed: {
     ...mapGetters({
-      currentDeckName: 'currentDeck'
+      currentDeckName: 'currentDeck',
+      currentCardData: 'currentCardData'
     })
   },
   methods: {
@@ -50,6 +52,16 @@ export default {
     },
     setDeckName() {
       this.currentDeck = this.currentDeckName
+    },
+    getCardData() {
+      return store.dispatch('getCardData', this.cardId).then(() => {
+        this.setCardData()
+      })
+    },
+    setCardData() {
+      let parsedData = JSON.parse(JSON.stringify(this.currentCardData))
+      this.cardFront = parsedData.front
+      this.cardBack = parsedData.back
     },
     cardAdd() {
       if (this.cardFront === '' || this.cardFront === '') {
@@ -69,7 +81,12 @@ export default {
         })
     },
     cardEdit(id) {
-      console.log(`Edit card ${id}`)
+      const cardToEdit = {
+        id: id,
+        front: this.cardFront,
+        back: this.cardBack
+      }
+      store.dispatch('editCard', cardToEdit)
     }
   }
 }

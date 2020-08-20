@@ -5,6 +5,7 @@ import { db } from '../../firebase'
 
 const state = {
   currentDeck: '',
+  currentCardData: [],
   dbDecks: '',
   dbCards: '',
   decks: [],
@@ -13,6 +14,7 @@ const state = {
 
 const getters = {
   currentDeck: state => state.currentDeck,
+  currentCardData: state => state.currentCardData,
   getDecks: state => state.decks,
   getCards: state => state.cards
 }
@@ -20,6 +22,9 @@ const getters = {
 const mutations = {
   SET_DECK_NAME: (state, deckName) => {
     deckName === null ? state.currentDeck = null : state.currentDeck = deckName
+  },
+  SET_CARD_DATA: (state, data) => {
+    state.currentCardData = data
   },
   SET_DBDECKS_NAME: (state, dbName) => {
     state.dbDecks = dbName
@@ -45,32 +50,45 @@ const actions = {
     let userId = firebaseAuth.currentUser.uid
     commit('SET_DBCARDS_NAME', `cards-${userId}`)
   },
+  getDeckName: async({ dispatch }, deckId) => {
+    let query = db.collection(state.dbDecks)
+    .where("id", "==", parseInt(deckId))
+    
+    await query.get()
+    .then(function (querySnapshot) {
+      querySnapshot.forEach( function(doc) {
+        dispatch('setDeckName', doc.data().name)
+      })
+    })
+  },
   setDeckName: ({ commit }, deckName) => {
     commit('SET_DECK_NAME', deckName)
   },
-  getDeckName: async({ dispatch }, deckId) => {
-    let userId = firebaseAuth.currentUser.uid
-    let query = db.collection(state.dbDecks)
-      .where("userId", "==", userId)
-      .where("id", "==", parseInt(deckId))
+  getCardData: async({ dispatch }, cardId) => {
+    let query = db.collection(state.dbCards)
+      .where("id", "==", parseInt(cardId))
     
     await query.get()
       .then(function (querySnapshot) {
         querySnapshot.forEach( function(doc) {
-          dispatch('setDeckName', doc.data().name)
+          const cardData = {
+            front: doc.data().front,
+            back: doc.data().back
+          }
+          dispatch('setCardData', cardData)
         })
     })
+  },
+  setCardData: ({ commit }, cardData) => {
+    commit('SET_CARD_DATA', cardData)
   },
   buildDeck: async({ dispatch }, deckName) => {
     try {
       const { serverTimestamp } = firebase.firestore.FieldValue;
-      let userId = firebaseAuth.currentUser.uid
-      let query = db.collection(state.dbDecks)
-        .where("userId", "==", userId)
       let id = 1
       
       // Get the ID of the deck we just added
-      let deckId = await query.get()
+      let deckId = await db.collection(state.dbDecks).get()
         .then((querySnapshot) => {
           // Determine next ID number to use for deck
           if (!querySnapshot.empty) {
@@ -82,7 +100,6 @@ const actions = {
           }
           const newDeck = {
             id: id,
-            userId: userId,
             name: deckName,
             created: serverTimestamp()
           }
@@ -117,16 +134,29 @@ const actions = {
       dispatch('setDeckName', deckName)
     })
   },
+  editCard: async({ dispatch }, card) => {
+    let dbRef = db.collection(state.dbCards).doc(`${card.id}`)
+
+    db.runTransaction( function(transaction) {
+      return transaction.get(dbRef).then( function(doc) {
+        if (!doc.exists) {
+          throw "Document does not exist"
+        }
+        const newCardData = { front: card.front, back: card.back }
+        transaction.update(dbRef, newCardData)
+        return newCardData
+      })
+    }).then(function (newCardData) {
+      dispatch('setCardData', newCardData)
+    })
+  },
   buildCard: async({ dispatch }, card) => {
     try {
       const { serverTimestamp } = firebase.firestore.FieldValue;
-      let userId = firebaseAuth.currentUser.uid
-      let query = db.collection(state.dbCards)
-        .where("userId", "==", userId)
       let id = 1
 
       // Get the next card ID
-      await query.get()
+      await db.collection(state.dbCards).get()
         .then((querySnapshot) => {
           if (!querySnapshot.empty) {
             querySnapshot.forEach(function (doc) {
@@ -138,7 +168,6 @@ const actions = {
           }
           const newCard = {
             id: id,
-            userId: userId,
             deckId: card.deckId,
             front: card.front,
             back: card.back,
