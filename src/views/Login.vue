@@ -43,6 +43,9 @@ export default {
       }
       store.dispatch('signIn', user)
         .then(() => this.$router.push({ name: 'Decks' }))
+        .catch(() => {
+          this.$router.push({ name: 'Login' })
+        })
     }
   }
 }

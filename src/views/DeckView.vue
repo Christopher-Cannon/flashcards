@@ -9,7 +9,7 @@
         Add new card
       </router-link>
 
-      <table class="table">
+      <table class="table" v-if="cardCount > 0">
         <thead>
           <tr>
             <th>ID</th>
@@ -19,13 +19,11 @@
           </tr>
         </thead>
 
-        <tbody>
-          <CardPreview />
-          <CardPreview />
-          <CardPreview />
+        <tbody v-for="(card, index) in cards" :key="index">
+          <CardPreview :card="card" :index="index" />
         </tbody>
 
-        <tfoot>
+        <tfoot v-if="cardCount > 10">
           <tr>
             <th>ID</th>
             <th>Front</th>
@@ -39,6 +37,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import DeckForm from '../components/DeckForm'
 import CardPreview from '../components/CardPreview'
 
@@ -48,6 +47,25 @@ export default {
     DeckForm,
     CardPreview
   },
-  props: ['deckId']
+  props: ['deckId'],
+  created() {
+    this.$store.dispatch('setDecksRef')
+    this.$store.dispatch('setCardsRef')
+  },
+  computed: {
+    ...mapGetters({
+      currentCardStore: 'getCards'
+    }),
+    cardCount: {
+      get: function() {
+        return this.currentCardStore.filter(card => card.deckId == this.deckId).length
+      }
+    },
+    cards: {
+      get: function() {
+        return this.currentCardStore.filter(card => card.deckId == this.deckId)
+      }
+    }
+  }
 }
 </script>

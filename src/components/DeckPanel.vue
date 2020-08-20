@@ -29,7 +29,6 @@ export default {
     }),
     cardCount: {
       get: function() {
-        console.log(this.deck.id)
         return this.currentCardStore.filter(card => card.deckId == this.deck.id).length
       }
     }

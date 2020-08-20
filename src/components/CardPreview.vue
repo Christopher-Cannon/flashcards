@@ -1,10 +1,10 @@
 <template>
   <tr>
-    <td>1</td>
-    <td>What is the capital of France?</td>
-    <td>Paris</td>
+    <td>{{ index + 1 }}</td>
+    <td>{{ card.front }}</td>
+    <td>{{ card.back }}</td>
     <td class="table-controls">
-      <router-link :to="{ name: 'CardView', params: { cardId: 86 } }" class="btn-primary">
+      <router-link :to="{ name: 'CardView', params: { cardId: card.id } }" class="btn-primary">
         Edit
       </router-link>
       <a href="javascript:;" class="btn-warning">Delete</a>
@@ -14,6 +14,7 @@
 
 <script>
 export default {
-  name: 'cardPreview'
+  name: 'cardPreview',
+  props: ['card', 'index']
 }
 </script>
