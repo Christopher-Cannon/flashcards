@@ -27,7 +27,7 @@ export default {
       currentDeck: ''
     }
   },
-  mounted() {
+  created() {
     // Display deck name if an ID is given
     if (this.deckId) {
       this.deckNameForEditing()
@@ -38,7 +38,7 @@ export default {
   computed: {
     // Get the name of the deck with the current deckId
     ...mapGetters({
-      currentDeckStore: 'currentDeck'
+      currentDeckName: 'currentDeck'
     })
   },
   methods: {
@@ -48,7 +48,7 @@ export default {
       })
     },
     setDeckName() {
-      this.currentDeck = this.currentDeckStore
+      this.currentDeck = this.currentDeckName
     },
     deckAdd() {
       store.dispatch('buildDeck', this.currentDeck)

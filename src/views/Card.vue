@@ -1,6 +1,6 @@
 <template>
   <div class="panel">
-    <h2 class="panel-heading" v-if="cardId">Update card {{ cardId }} of deck {{ deckId }}</h2>
+    <h2 class="panel-heading" v-if="cardId">Update card {{ cardId }} of {{ currentDeck }}</h2>
     <h2 class="panel-heading" v-else>Add new card</h2>
 
     <form class="form" @submit.prevent="cardId ? cardEdit(cardId) : cardAdd()">
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-// import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 import { store } from '../store/store'
 
 export default {
@@ -26,10 +26,31 @@ export default {
   data() {
     return {
       cardFront: '',
-      cardBack: ''
+      cardBack: '',
+      currentDeck: ''
     }
   },
+  created() {
+    this.$store.dispatch('setDecksRef')
+
+    if (this.deckId) {
+      this.getDeckName()
+    }
+  },
+  computed: {
+    ...mapGetters({
+      currentDeckName: 'currentDeck'
+    })
+  },
   methods: {
+    getDeckName() {
+      return store.dispatch('getDeckName', this.deckId).then(() => {
+        this.setDeckName()
+      })
+    },
+    setDeckName() {
+      this.currentDeck = this.currentDeckName
+    },
     cardAdd() {
       if (this.cardFront === '' || this.cardFront === '') {
         console.log('Card fields cannot be empty')

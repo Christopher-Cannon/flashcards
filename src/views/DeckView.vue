@@ -49,7 +49,6 @@ export default {
   },
   props: ['deckId'],
   created() {
-    this.$store.dispatch('setDecksRef')
     this.$store.dispatch('setCardsRef')
   },
   computed: {
