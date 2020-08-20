@@ -39,15 +39,7 @@ export default {
     // Get the name of the deck with the current deckId
     ...mapGetters({
       currentDeckStore: 'currentDeck'
-    }),
-    // currentDeck: {
-    //   get: function() {
-    //     return this.currentDeckStore
-    //   },
-    //   set: function(newValue) {
-    //     return newValue
-    //   }
-    // }
+    })
   },
   methods: {
     deckNameForEditing() {
@@ -71,9 +63,7 @@ export default {
         id: id,
         deckName: this.currentDeck
       }
-
-      console.log(deckToEdit)
-      // store.dispatch('editDeck', deckToEdit)
+      store.dispatch('editDeck', deckToEdit)
     }
   }
 }

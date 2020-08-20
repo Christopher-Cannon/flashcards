@@ -44,8 +44,12 @@ const actions = {
       let deckId = await query.get()
         .then((querySnapshot) => {
           // Determine next ID number to use for deck
-          if (querySnapshot.docs.length > 0) {
-            id = querySnapshot.docs.length + 1
+          if (!querySnapshot.empty) {
+            querySnapshot.forEach( function(doc) {
+              if (id <= doc.id) {
+                id = parseInt(doc.id) + 1
+              }
+            })
           }
           const newDeck = {
             id: id,
@@ -65,11 +69,17 @@ const actions = {
   addDeck: async(context, newDeck) => {
     try {
       console.log(newDeck)
-      await dbDecks.add(newDeck)
+      await dbDecks.doc(`${newDeck.id}`).set(newDeck)
     } catch (error) {
       console.log(`Error creating new deck, ${error}`)
     }
-  }
+  },
+  // editDeck: async(context, deck) => {
+  //   let userId = firebaseAuth.currentUser.uid
+  //   let query = dbDecks
+  //     .where("userId", "==", userId)
+  //     .where("id", "==", parseInt(deckId))
+  // }
 }
 
 export default {

@@ -11,7 +11,6 @@ const PasswordReset = () => import('./views/PasswordReset');
 const DeckView = () => import(/* webpackChunkName: "deck-editor" */ './views/DeckView');
 const Card = () => import(/* webpackChunkName: "deck-editor" */ './views/Card');
 
-
 export const routes = [
   { path: '/', name: 'Home', component: Home },
   { path: '/about', name: 'About', component: About },
