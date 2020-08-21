@@ -1,9 +1,9 @@
 <template>
   <div class="panel">
     <h2 class="panel-heading" v-if="cardId">Update card {{ cardId }} of {{ currentDeck }}</h2>
-    <h2 class="panel-heading" v-else>Add new card</h2>
+    <h2 class="panel-heading" v-else>Add new card to {{ currentDeck }}</h2>
 
-    <form class="form" @submit.prevent="cardId ? cardEdit(cardId) : cardAdd()">
+    <form class="form" @submit.prevent="cardId ? cardEdit() : cardAdd()">
       <label>Front</label>
       <textarea name="front" maxlength="512" v-model="cardFront"></textarea>
 
@@ -32,9 +32,9 @@ export default {
   },
   created() {
     this.$store.dispatch('setDecksRef')
+    this.getDeckName()
 
-    if (this.deckId) {
-      this.getDeckName()
+    if (this.cardId) {
       this.getCardData()
     }
   },
@@ -76,17 +76,20 @@ export default {
       }
 
       store.dispatch('buildCard', newCard)
-        .then((deckId) => {
-          this.$router.push({ name: 'DeckView', params: { deckId: deckId } })
+        .then(() => {
+          this.$router.push({ name: 'DeckView', params: { deckId: this.deckId } })
         })
     },
-    cardEdit(id) {
+    cardEdit() {
       const cardToEdit = {
-        id: id,
+        id: this.cardId,
         front: this.cardFront,
         back: this.cardBack
       }
       store.dispatch('editCard', cardToEdit)
+        .then(() => {
+          this.$router.push({ name: 'DeckView', params: { deckId: this.deckId } })
+        })
     }
   }
 }

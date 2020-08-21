@@ -5,7 +5,7 @@
     <div v-if="deckId">
       <h3 class="margin-top-md">List of cards</h3>
 
-      <router-link :to="{ name: 'CardAdd' }" class="btn-primary btn-block">
+      <router-link :to="{ name: 'CardAdd', param: { deckId: deckId } }" class="btn-primary btn-block">
         Add new card
       </router-link>
 
@@ -20,7 +20,7 @@
         </thead>
 
         <tbody v-for="(card, index) in cards" :key="index">
-          <CardPreview :card="card" :index="index" />
+          <CardPreview :deckId="deckId" :card="card" :index="index" />
         </tbody>
 
         <tfoot v-if="cardCount > 10">

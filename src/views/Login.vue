@@ -42,7 +42,6 @@ export default {
         password: this.password
       }
       store.dispatch('signIn', user)
-        .then(() => this.$router.push({ name: 'Decks' }))
         .catch(() => {
           this.$router.push({ name: 'Login' })
         })

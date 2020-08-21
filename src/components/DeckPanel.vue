@@ -7,7 +7,7 @@
     </p>
 
     <div class="card-btn-group">
-      <router-link :to="{ name: 'DeckView', params: { deckId: parseInt(deck.id) } }" class="btn-primary btn-block">
+      <router-link :to="{ name: 'DeckView', params: { deckId: deck.id } }" class="btn-primary btn-block">
         Edit
       </router-link>
       <router-link :to="{ name: 'Review' }" class="btn-primary btn-block">
