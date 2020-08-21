@@ -21,8 +21,8 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const loggedInBlacklist = ['Login', 'Register']
-  const loggedOutBlacklist = ['Decks', 'Settings', 'Review', 'Results', 'PasswordReset']
+  const loggedInBlacklist = ['Login', 'Register', 'PasswordReset']
+  const loggedOutBlacklist = ['Decks', 'Settings', 'Review', 'Results']
 
   firebaseAuth.onAuthStateChanged(user => {
     if (loggedInBlacklist.includes(to.name) && user) {

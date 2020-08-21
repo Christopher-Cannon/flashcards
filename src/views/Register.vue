@@ -13,13 +13,16 @@
       <input type="password" v-model="passwordTwo">
 
       <input type="submit" name="submit" value="Register">
+
+      <p class="warning-text">{{ errorMessage }}</p>
     </form>
   </div>
 </template>
 
 <script>
-import { firebaseAuth } from '../firebase'
+import { mapGetters } from 'vuex'
 import { store } from '../store/store'
+import { firebaseAuth } from '../firebase'
 
 export default {
   name: 'register',
@@ -29,6 +32,11 @@ export default {
       passwordOne: '',
       passwordTwo: ''
     }
+  },
+  computed: {
+    ...mapGetters([
+      'errorMessage'
+    ])
   },
   methods: {
     register() {
@@ -45,9 +53,6 @@ export default {
               password: this.passwordOne
             }
             store.dispatch('signIn', user)
-              .catch(() => {
-                this.$router.push({ name: 'Login' })
-              })
           })
         } catch (error) {
           console.log(error.message)

@@ -10,6 +10,8 @@
       <input type="password" v-model="password">
 
       <input type="submit" name="submit" value="Login">
+
+      <p class="warning-text">{{ errorMessage }}</p>
     </form>
 
     <router-link :to="{ name: 'PasswordReset' }" class="link">
@@ -32,7 +34,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentUser'
+      'currentUser',
+      'errorMessage'
     ])
   },
   methods: {
@@ -42,9 +45,6 @@ export default {
         password: this.password
       }
       store.dispatch('signIn', user)
-        .catch(() => {
-          this.$router.push({ name: 'Login' })
-        })
     }
   }
 }

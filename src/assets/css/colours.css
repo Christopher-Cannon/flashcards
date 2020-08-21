@@ -22,6 +22,11 @@ hr {
   color: var(--accent-strong);
 }
 
+.warning-text {
+    color: var(--warning-strong);
+    font-weight: bold;
+  }
+
 /* Page header and navigation */
 .page-header,
 .panel,

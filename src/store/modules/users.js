@@ -4,12 +4,14 @@ const state = {
   user: {
     loggedIn: null,
     data: null
-  }
+  },
+  error: null
 }
 
 const getters = {
   loggedIn: state => state.user.loggedIn,
-  currentUser: state => state.user.data
+  currentUser: state => state.user.data,
+  errorMessage: state => state.error
 }
 
 const mutations = {
@@ -18,6 +20,9 @@ const mutations = {
   },
   SET_USER(state, data) {
     state.user.data = data
+  },
+  SET_ERROR(state, error) {
+    state.error = error
   }
 }
 
@@ -40,7 +45,7 @@ const actions = {
         commit('SET_USER', null)
       }
     } catch (error) {
-      console.log(error.message)
+      commit('SET_ERROR', "An error occurred registering your account, please try again")
     }
   },
   async signIn ({ commit }, user) {
@@ -57,7 +62,13 @@ const actions = {
         commit('SET_USER', null)
       }
     } catch (error) {
-      console.log(error.message)
+      if (error.code == "auth/user-not-found" || error.code == "auth/wrong-password") {
+        commit('SET_ERROR', "Invalid credentials, please check your email and password and try again")
+      } else if (error.code == "auth/too-many-requests") {
+        commit('SET_ERROR', "There were too many unsuccessful login attempts, please try again later")
+      } else {
+        commit('SET_ERROR', "An error occurred logging you in, please try again")
+      }
     }
   },
   async signOut ({ commit }) {
