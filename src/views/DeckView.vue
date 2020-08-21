@@ -38,6 +38,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { store } from '../store/store'
 import DeckForm from '../components/DeckForm'
 import CardPreview from '../components/CardPreview'
 
@@ -49,20 +50,21 @@ export default {
   },
   props: ['deckId'],
   created() {
-    this.$store.dispatch('setCardsRef')
+    store.dispatch('setCardsRef')
   },
   computed: {
     ...mapGetters({
-      currentCardStore: 'getCards'
+      currentCardsStore: 'getCards',
+      currentDecksStore: 'getDecks'
     }),
     cardCount: {
       get: function() {
-        return this.currentCardStore.filter(card => card.deckId == this.deckId).length
+        return this.currentCardsStore.filter(card => card.deckId == this.deckId).length
       }
     },
     cards: {
       get: function() {
-        return this.currentCardStore.filter(card => card.deckId == this.deckId)
+        return this.currentCardsStore.filter(card => card.deckId == this.deckId)
       }
     }
   }

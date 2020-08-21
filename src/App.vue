@@ -20,12 +20,11 @@ export default {
   components: {
     PageHeader
   },
-  mounted() {
+  created() {
     firebaseAuth.onAuthStateChanged(user => {
       if (user) {
         // Set user logged in flag in state
         store.dispatch('persistSignIn', user.email)
-
         // Set names of user collections
         store.dispatch('setDecksDBName')
         store.dispatch('setCardsDBName')

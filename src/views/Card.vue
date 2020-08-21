@@ -41,6 +41,7 @@ export default {
   computed: {
     ...mapGetters({
       currentDeckName: 'currentDeck',
+      currentCardsStore: 'getCards',
       currentCardData: 'currentCardData'
     })
   },
