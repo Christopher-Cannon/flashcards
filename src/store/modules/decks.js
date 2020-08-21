@@ -96,6 +96,13 @@ const actions = {
     }).then( function(deckName) {
       dispatch('setDeckName', deckName)
     })
+  },
+  deleteDeck: async(context, deckId) => {
+    try {
+      await db.collection(state.dbDecks).doc(`${deckId}`).delete()
+    } catch (error) {
+      console.log("Error removing deck: ", error);
+    }
   }
 }
 

@@ -13,16 +13,17 @@
 </template>
 
 <script>
+import { store } from '../store/store'
+
 export default {
   name: 'cardPreview',
   props: ['deckId', 'card', 'index'],
   methods: {
     deleteCard: (cardId, index) => {
-      console.log(`Delete card ${cardId}`)
       let decision = confirm(`Are you sure you want to delete card ${index + 1}?`)
       
       if (decision) {
-        console.log(decision)
+        store.dispatch('deleteCard', cardId)
       }
     }
   }

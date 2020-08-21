@@ -31,7 +31,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('setDecksRef')
+    store.dispatch('setDecksRef')
     this.getDeckName()
 
     if (this.cardId) {

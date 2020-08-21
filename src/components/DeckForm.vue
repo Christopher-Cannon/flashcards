@@ -3,7 +3,7 @@
     <h2 class="panel-heading" v-if="deckId">{{ currentDeck }}</h2>
     <h2 class="panel-heading" v-else>Add new deck</h2>
 
-    <form class="form" @submit.prevent="deckId ? deckEdit(deckId) : deckAdd()">
+    <form class="form" @submit.prevent="deckId ? deckEdit() : deckAdd()">
       <label>Deck name</label>
       <input type="text" name="deck-name" v-model="currentDeck">
 
@@ -11,7 +11,14 @@
       <input type="submit" name="submit" value="Create deck" v-else>
     </form>
 
-    <a href="javascript:;" class="btn-warning btn-block" v-if="deckId">Delete deck</a>
+    <a
+      href="javascript:;"
+      class="btn-warning btn-block"
+      v-if="deckId"
+      @click.prevent="deleteDeck()"
+    >
+      Delete deck
+    </a>
   </div>
 </template>
 
@@ -52,16 +59,29 @@ export default {
     },
     deckAdd() {
       store.dispatch('buildDeck', this.currentDeck)
-        .then((deckId) => {
-          this.$router.push({ name: 'DeckView', params: { deckId: deckId } })
+        .then(() => {
+          this.$router.push({ name: 'DeckView', params: { deckId: this.deckId } })
         })
     },
-    deckEdit(id) {
+    deckEdit() {
       const deckToEdit = {
-        id: id,
+        id: this.deckId,
         deckName: this.currentDeck
       }
       store.dispatch('editDeck', deckToEdit)
+    },
+    deleteDeck() {
+      let decision = confirm(`Are you sure you want to delete ${this.currentDeck}?`)
+      
+      if (decision) {
+        store.dispatch('deleteCardsInDeck', this.deckId)
+          .then(() => {
+            store.dispatch('deleteDeck', this.deckId)
+              .then(() => {
+                this.$router.push({ name: 'Decks' })
+            })
+        })
+      }
     }
   }
 }

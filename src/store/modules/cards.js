@@ -27,10 +27,6 @@ const actions = {
   setCardsRef: firestoreAction(context => {
     return context.bindFirestoreRef('cards', db.collection(state.dbCards))
   }),
-  setDecksDBName: ({ commit }) => {
-    let userId = firebaseAuth.currentUser.uid
-    commit('SET_DBDECKS_NAME', `decks-${userId}`)
-  },
   setCardsDBName: ({ commit }) => {
     let userId = firebaseAuth.currentUser.uid
     commit('SET_DBCARDS_NAME', `cards-${userId}`)
@@ -107,6 +103,32 @@ const actions = {
       console.log(`Error creating new deck, ${error}`)
     }
   },
+  deleteCard: async(context, cardId) => {
+    try {
+      await db.collection(state.dbCards).doc(`${cardId}`).delete()
+    } catch (error) {
+      console.log("Error removing card: ", error);
+    }
+  },
+  deleteCardsInDeck: async(context, deckId) => {
+    try {
+      await db.collection(state.dbCards).get()
+        .then((querySnapshot) => {
+          let cards = []
+
+          querySnapshot.forEach(function (doc) {
+            if (doc.data().deckId == deckId) {
+              cards.push(doc.data().id)
+            }
+          })
+          cards.forEach((element) => {
+            db.collection(state.dbCards).doc(`${element}`).delete()
+          })
+        })
+    } catch (error) {
+      console.log("Error removing card: ", error);
+    }
+  }
 }
 
 export default {
