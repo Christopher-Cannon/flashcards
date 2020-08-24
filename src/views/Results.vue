@@ -1,5 +1,5 @@
 <template>
-  <div class="panel">
+  <div class="panel" v-if="results.failedCards">
     <h2 class="panel-heading">Results of review session</h2>
 
     <router-link :to="{ name: 'Decks' }" class="btn-primary btn-block">
@@ -13,7 +13,7 @@
       <li>Cards passed: {{ results.totalPasses }}</li>
     </ul>
 
-    <div v-if="results.failedCards">
+    <div v-if="results.failedCards.length !== 0">
       <h3>Failed cards</h3>
 
       <table class="table">
