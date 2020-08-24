@@ -10,7 +10,11 @@
       <router-link :to="{ name: 'DeckView', params: { deckId: deck.id } }" class="btn-primary btn-block">
         Edit
       </router-link>
-      <router-link :to="{ name: 'Review', params: { deckId: deck.id } }" class="btn-primary btn-block">
+      <router-link
+        :to="{ name: 'Review', params: { deckId: deck.id } }"
+        class="btn-primary btn-block"
+        v-if="cardCount > 0"
+      >
         Review
       </router-link>
     </div>

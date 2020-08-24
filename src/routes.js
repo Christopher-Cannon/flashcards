@@ -47,7 +47,13 @@ export const routes = [
       })
     }
   },
-  { path: '/deck/:deckId/card', redirect: { name: 'DeckView' } },
+  { 
+    path: '/deck/:deckId/card', 
+    redirect: to => ({
+      name: 'DeckView',
+      params: { deckId: to.params.deckId }
+    }) 
+  },
   { path: '/deck/:deckId/card/add', name: 'CardAdd', component: Card, props: true },
   { 
     path: '/deck/:deckId/card/:cardId', 
