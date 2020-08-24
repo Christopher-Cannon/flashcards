@@ -1,13 +1,19 @@
 <template>
   <div>
-    <h2 class="panel-heading" v-if="deckId">{{ currentDeck }}</h2>
+    <h2 class="panel-heading" v-if="deckId">{{ currentDeckName }}</h2>
     <h2 class="panel-heading" v-else>Add new deck</h2>
 
     <form class="form" @submit.prevent="deckId ? deckEdit() : deckAdd()">
       <label>Deck name</label>
       <input type="text" name="deck-name" v-model="currentDeck">
 
-      <input type="submit" name="submit" value="Update deck" v-if="deckId">
+      <input
+        type="submit"
+        name="submit"
+        value="Update deck"
+        v-if="deckId"
+        v-show="currentDeck != currentDeckName"
+      >
       <input type="submit" name="submit" value="Create deck" v-else>
     </form>
 
