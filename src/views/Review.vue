@@ -22,9 +22,6 @@
     </div>
 
     <a href="javascript:;" class="btn-primary btn-block" v-else @click.prevent="flipCard()">Flip card</a>
-
-    {{ reviewSession.currentReviewId }}
-    {{ cards }}
   </div>
 </template>
 
@@ -58,6 +55,21 @@ export default {
         this.createDeckOfCards()
         this.initReviewSession()
       })
+  },
+  beforeRouteLeave(to, from, next) {
+    // Going to results page and reviews finished - OK to move on
+    if (to.name === "Results" && this.reviewSession.currentReviewId === this.cards.length - 1) {
+      next()
+    // Going anywhere else at anytime - ask user if they are sure
+    } else {
+      let decision = confirm("Leaving this page will discard your review progress, are you sure?")
+  
+      if (decision) {
+        next()
+      } else {
+        next(false)
+      }
+    }
   },
   computed: {
     ...mapGetters({
