@@ -3,8 +3,8 @@
     <h2 class="panel-heading">My Decks</h2>
 
     <p>
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-      Quisquam at quidem unde, officiis dolor iure commodi vitae minima. Eos, quis?
+      Create a new deck of flashcards using the button below, then add, edit and remove  
+      cards in the edit page. Click review to go through that deck's cards and test your memory.
     </p>
 
     <div class="grid cards">

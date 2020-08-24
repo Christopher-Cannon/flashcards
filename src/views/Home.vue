@@ -3,8 +3,8 @@
     <h2 class="panel-heading">Flashcards</h2>
 
     <p>
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
-      Quisquam at quidem unde, officiis dolor iure commodi vitae minima.
+      Create decks of flashcards on any topic you want to commit to memory. Register 
+      a new account or login below.
     </p>
 
     <div class="btn-group" v-if="loggedIn === null">

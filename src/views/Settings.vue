@@ -2,11 +2,6 @@
   <div class="panel">
     <h2 class="panel-heading">My Settings</h2>
 
-    <p>
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-      Quisquam at quidem unde, officiis dolor iure commodi vitae minima. Eos, quis?
-    </p>
-
     <h3>General settings</h3>
 
     <div class="checkbox-container">
