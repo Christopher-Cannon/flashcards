@@ -13,33 +13,35 @@
       <li>Cards passed: {{ results.totalPasses }}</li>
     </ul>
 
-    <h3>Failed cards</h3>
+    <div v-if="results.failedCards">
+      <h3>Failed cards</h3>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Front</th>
-          <th>Back</th>
-        </tr>
-      </thead>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Front</th>
+            <th>Back</th>
+          </tr>
+        </thead>
 
-      <tbody v-for="(card, index) in results.failedCards" :key="index">
-        <tr>
-          <td>{{ index + 1 }}</td>
-          <td>{{ card.front }}</td>
-          <td>{{ card.back }}</td>
-        </tr>
-      </tbody>
+        <tbody v-for="(card, index) in results.failedCards" :key="index">
+          <tr>
+            <td>{{ index + 1 }}</td>
+            <td>{{ card.front }}</td>
+            <td>{{ card.back }}</td>
+          </tr>
+        </tbody>
 
-      <tfoot v-if="results.failedCards.length > 10">
-        <tr>
-          <th>ID</th>
-          <th>Front</th>
-          <th>Back</th>
-        </tr>
-      </tfoot>
-    </table>
+        <tfoot v-if="results.failedCards.length > 10">
+          <tr>
+            <th>ID</th>
+            <th>Front</th>
+            <th>Back</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
   </div>
 </template>
 
