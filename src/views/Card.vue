@@ -46,8 +46,8 @@ export default {
     })
   },
   methods: {
-    getDeckName() {
-      return store.dispatch('getDeckName', this.deckId).then(() => {
+    async getDeckName() {
+      return await store.dispatch('getDeckName', this.deckId).then(() => {
         this.setDeckName()
       })
     },

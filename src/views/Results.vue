@@ -2,7 +2,9 @@
   <div class="panel">
     <h2 class="panel-heading">Results of review session</h2>
 
-    <a href="decks.html" class="btn-primary btn-block">Return to decks</a>
+    <router-link :to="{ name: 'Decks' }" class="btn-primary btn-block">
+      Return to decks
+    </router-link>
 
     <h3>Overview</h3>
     

@@ -10,7 +10,7 @@
       <router-link :to="{ name: 'DeckView', params: { deckId: deck.id } }" class="btn-primary btn-block">
         Edit
       </router-link>
-      <router-link :to="{ name: 'Review' }" class="btn-primary btn-block">
+      <router-link :to="{ name: 'Review', params: { deckId: deck.id } }" class="btn-primary btn-block">
         Review
       </router-link>
     </div>
