@@ -9,8 +9,8 @@
     <h3>Overview</h3>
     
     <ul class="list">
-      <li>Cards reviewed: 40</li>
-      <li>Correct cards: 38</li>
+      <li>Cards reviewed: {{ results.totalReviews }}</li>
+      <li>Cards passed: {{ results.totalPasses }}</li>
     </ul>
 
     <h3>Failed cards</h3>
@@ -24,24 +24,45 @@
         </tr>
       </thead>
 
-      <tbody>
+      <tbody v-for="(card, index) in results.failedCards" :key="index">
         <tr>
-          <td>1</td>
-          <td>What is the capital of France?</td>
-          <td>Paris</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Now I am going to ask a very long question that probably won't fit inside the box</td>
-          <td>This answer is also going to be very long to the extent that it will barely fit</td>
+          <td>{{ index + 1 }}</td>
+          <td>{{ card.front }}</td>
+          <td>{{ card.back }}</td>
         </tr>
       </tbody>
+
+      <tfoot v-if="results.failedCards.length > 10">
+        <tr>
+          <th>ID</th>
+          <th>Front</th>
+          <th>Back</th>
+        </tr>
+      </tfoot>
     </table>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'results'
+  name: 'results',
+  data() {
+    return {
+      results: {}
+    }
+  },
+  created() {
+    if (this.$cookies.isKey('reviewSession')) {
+      this.results = this.$cookies.get('reviewSession')
+    } else {
+      this.$router.replace({ name: 'Decks' })
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    if (this.$cookies.isKey('reviewSession')) {
+      this.$cookies.remove('reviewSession')
+    }
+    next()
+  }
 }
 </script>

@@ -65,6 +65,10 @@ export default {
       let decision = confirm("Leaving this page will discard your review progress, are you sure?")
   
       if (decision) {
+        // Unset cookie and this review session
+        if (this.$cookies.isKey('reviewSession')) {
+          this.$cookies.remove('reviewSession')
+        }
         next()
       } else {
         next(false)
@@ -91,6 +95,9 @@ export default {
     },
     failCard() {
       this.cardFlipped = false
+      this.reviewSession.failedCards.push(this.card)
+
+      this.updateReviewSessionCookie()
       
       this.nextReview()
     },
@@ -107,15 +114,30 @@ export default {
           newCardSet.push(card)
         }
       })
-
       this.cards = newCardSet
+    },
+    updateReviewSessionCookie() {
+      const newReviewSession = {
+        currentReviewId: this.reviewSession.currentReviewId,
+        failedCards: this.reviewSession.failedCards
+      }
+      this.$cookies.set('reviewSession', newReviewSession)
     },
     initReviewSession() {
       // If a cookie exists, load it into state
+      if (this.$cookies.isKey('reviewSession')) {
+        const storedSession = this.$cookies.get('reviewSession')
 
-      // Else, create a new review object, place in state and copy into cookie
-
-      // Go to initial review
+        if (storedSession.currentReviewId > 0) {
+          this.reviewSession.currentReviewId = storedSession.currentReviewId - 1
+        } else {
+          this.reviewSession.currentReviewId = null
+        }
+        this.reviewSession.failedCards = storedSession.failedCards
+      } else {
+        // Else, backup initial state as a cookie
+        this.$cookies.set('reviewSession', this.reviewSession)
+      }
       this.nextReview()
     },
     nextReview() {
@@ -123,9 +145,21 @@ export default {
         this.reviewSession.currentReviewId = 0
         this.card = this.cards[0]
       } else if (this.reviewSession.currentReviewId < this.cards.length - 1) {
+
+        // Advance review counter, get data for next card
         this.reviewSession.currentReviewId += 1
         this.card = this.cards[this.reviewSession.currentReviewId]
+
+        this.updateReviewSessionCookie()
       } else {
+        // Lastly set reviewSession cookie with additional info
+        const reviewSessionResults = {
+          currentReviewId: this.reviewSession.currentReviewId,
+          failedCards: this.reviewSession.failedCards,
+          totalReviews: this.cards.length,
+          totalPasses: this.cards.length - this.reviewSession.failedCards.length
+        }
+        this.$cookies.set('reviewSession', reviewSessionResults)
         this.$router.push({ name: 'Results' })
       }
     }

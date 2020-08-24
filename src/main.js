@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
+import VueCookies from 'vue-cookies'
 import { routes } from './routes'
 import { store } from './store/store'
 import { firebaseAuth } from './firebase'
@@ -8,6 +9,9 @@ import { firebaseAuth } from './firebase'
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)
+Vue.use(VueCookies)
+
+Vue.$cookies.config('7d')
 
 const router = new VueRouter({
   routes,
