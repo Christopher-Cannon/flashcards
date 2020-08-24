@@ -42,6 +42,10 @@
         </tfoot>
       </table>
     </div>
+
+    <div v-else>
+      <h3>You guessed all cards correctly!</h3>
+    </div>
   </div>
 </template>
 
