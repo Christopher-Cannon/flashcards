@@ -6,12 +6,12 @@
 
     <div class="checkbox-container">
       <label>Dark mode</label>
-      <input type="checkbox" name="dark-mode">
-    </div>
-
-    <div class="checkbox-container">
-      <label>Larger text</label>
-      <input type="checkbox" name="dark-mode">
+      <input
+        type="checkbox"
+        name="dark-mode"
+        :checked="this.$cookies.isKey('darkMode')"
+        @change="toggleDarkMode()"
+      >
     </div>
 
     <h3>Email address</h3>
@@ -47,6 +47,15 @@
 
 <script>
 export default {
-  name: 'settings'
+  name: 'settings',
+  methods: {
+    toggleDarkMode() {
+      this.$cookies.isKey('darkMode')
+      ? this.$cookies.remove('darkMode')
+      : this.$cookies.set('darkMode', 'on', 60*60*24*30*52)
+      
+      this.$emit('dark-mode-toggled')
+    }
+  }
 }
 </script>

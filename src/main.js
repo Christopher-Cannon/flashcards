@@ -11,7 +11,7 @@ Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(VueCookies)
 
-Vue.$cookies.config('7d')
+Vue.$cookies.config('30d')
 
 const router = new VueRouter({
   routes,
